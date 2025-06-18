@@ -4,12 +4,15 @@ export async function POST(req: NextRequest) {
   const { messages } = await req.json();
   const prompt = messages.map((m: any) => `${m.role}: ${m.content}`).join('\n');
 
-  const response = await fetch("https://mirxakamran893-LOGIQCURVECHATIQBOT.hf.space/api/predict", {
-    method: "POST",
+  const response = await fetch('https://mirxakamran893-LOGIQCURVECHATIQBOT.hf.space/chat', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ inputs: prompt })
+    body: JSON.stringify({
+      message: prompt,
+      history: []
+    })
   });
 
   const data = await response.json();
